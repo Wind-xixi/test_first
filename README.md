@@ -18,6 +18,8 @@ vosk是语音识别代码。下载地址：https://alphacephei.com/vosk/models
 
 AndroidManifest.xml文件里第4，16，19，28，29行注意改为自己项目名称
 
+因为每个电脑下载的东西和配置不一样，出错的话就根据自己电脑的配置问ai改一下吧
+
 
 
 
