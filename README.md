@@ -10,3 +10,7 @@ app项目下的build.gradle：
 第12，16行注意更换为自己的项目名称
 
 settings.gradle第32行注意更换为自己的项目名称
+
+将文件下载在assets文件夹里（assets文件夹是自己创建的）
+
+
