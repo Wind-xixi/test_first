@@ -14,8 +14,11 @@ settings.gradle第32行注意更换为自己的项目名称
 将文件下载在assets文件夹里（assets文件夹是自己创建的）
 vosk是语音识别代码。下载地址：https://alphacephei.com/vosk/models
 （下载我图片里那个42M的版本，记得上面一定是Chinese，不要选English）
+（下载好的文件像图中一样导入代码）
 
 AndroidManifest.xml文件里第4，16，19，28，29行注意改为自己项目名称
+
+
 
 
 
