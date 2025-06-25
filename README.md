@@ -12,6 +12,7 @@ app项目下的build.gradle：
 settings.gradle第32行注意更换为自己的项目名称
 
 将文件下载在assets文件夹里（assets文件夹是自己创建的）
-vosk是语音识别代码。下载地址：https://alphacephei.com/vosk/models（下载我图片里那个43M的版本）
+vosk是语音识别代码。下载地址：https://alphacephei.com/vosk/models
+（下载我图片里那个43M的版本）
 
 
