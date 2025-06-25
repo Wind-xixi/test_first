@@ -15,4 +15,7 @@ settings.gradle第32行注意更换为自己的项目名称
 vosk是语音识别代码。下载地址：https://alphacephei.com/vosk/models
 （下载我图片里那个42M的版本，记得上面一定是Chinese，不要选English）
 
+AndroidManifest.xml文件里第4，16，19，28，29行注意改为自己项目名称
+
+
 
