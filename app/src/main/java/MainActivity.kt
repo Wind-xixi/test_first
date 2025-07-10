@@ -21,6 +21,7 @@ import org.vosk.Model
 import org.vosk.Recognizer
 import java.io.File
 import java.io.FileOutputStream
+import android.os.Environment
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.unit.sp
@@ -144,16 +145,17 @@ class MainActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(onClick = {
-                    val fileList = listSavedFiles()
-                    val message = if (fileList.isEmpty()) {
-                        "没有找到任何保存的文件。"
+                    val files = listSavedFiles()
+                    if (files.isEmpty()) {
+                        Toast.makeText(this@MainActivity, "没有找到任何保存的文件。", Toast.LENGTH_SHORT).show()
                     } else {
-                        fileList.joinToString("\n")
+                        savedFiles = files
+                        showFileListDialog = true
                     }
-                    Toast.makeText(this@MainActivity, "已保存文件:\n$message", Toast.LENGTH_LONG).show()
                 }) {
                     Text("查看已保存的文件")
                 }
+
 
                 Button(onClick = { fullText = "" }) {
                     Text("清除文本")
@@ -204,7 +206,7 @@ class MainActivity : ComponentActivity() {
                         Column {
                             savedFiles.forEach { file ->
                                 TextButton(onClick = {
-                                    selectedFileContent = file.readText()
+                                    selectedFileContent = readTextFromFile(file)
                                     selectedFileName = file.nameWithoutExtension
                                     showFileListDialog = false
                                 }) {
@@ -220,6 +222,7 @@ class MainActivity : ComponentActivity() {
                     }
                 )
             }
+
 
             if (selectedFileContent != null && selectedFileName != null) {
                 AlertDialog(
@@ -366,36 +369,39 @@ class MainActivity : ComponentActivity() {
     //在 MainActivity 中添加一个函数，用于将识别的文本保存到本地文件
     private fun saveTextToFile(fileName: String, content: String) {
         try {
-            val wordDir = File(filesDir, "word")
-            if (!wordDir.exists()) wordDir.mkdirs()
+            val targetDir = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "doct")
+            if (!targetDir.exists()) targetDir.mkdirs()
 
-            val file = File(wordDir, "$fileName.txt")
+            val file = File(targetDir, "$fileName.txt")
             file.writeText(content)
+
+            Toast.makeText(this, "文件已保存至: ${file.absolutePath}", Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, "保存失败: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
+
+
+
     //添加一个函数读取指定文件名的文本
-    private fun readTextFromFile(fileName: String): String {
+    private fun readTextFromFile(file: File): String {
         return try {
-            val file = File(filesDir, "$fileName.txt")
-            if (file.exists()) {
-                file.readText()
-            } else {
-                "文件不存在"
-            }
+            file.readText()
         } catch (e: Exception) {
             "读取失败: ${e.message}"
         }
     }
+
     //你可以列出 filesDir 中所有 .txt 文件
     private fun listSavedFiles(): List<File> {
-        val wordDir = File(filesDir, "word")
-        if (!wordDir.exists()) return emptyList()
-        return wordDir.listFiles { _, name -> name.endsWith(".txt") }?.toList() ?: emptyList()
+        val targetDir = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "doct")
+        if (!targetDir.exists()) return emptyList()
+        return targetDir.listFiles { _, name -> name.endsWith(".txt") }?.toList() ?: emptyList()
     }
+
+
 
 
 
