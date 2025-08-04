@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id'com.chaquo.python'
+    id 'com.chaquo.python'
 }
 
 android {
@@ -25,7 +25,7 @@ android {
         }
         python {
             // 指定python路径 注意更换为自己的Python路径！！
-            buildPython "D:/py_311/python.exe"
+            buildPython "D:/py3.8/python.exe"
 
             //安装第三方库
             pip{
@@ -69,6 +69,10 @@ dependencies {
     implementation libs.androidx.ui.graphics
     implementation libs.androidx.ui.tooling.preview
     implementation libs.androidx.material3
+    implementation libs.kotlinx.coroutines.android
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
